@@ -187,7 +187,7 @@
 
         <div class="card">
             <h2>Share an Experience!</h2>
-            <form method="POST" action="{{ url_for('add_experience') }}">
+            <form method="POST" action="{{ url_for('add_experience') }}"  enctype="multipart/form-data">
                 <div class="star-rating">
                     <input type="radio" name="rating" value="5" id="5"><label for="5">★</label>
                     <input type="radio" name="rating" value="4" id="4"><label for="4">★</label>
@@ -206,7 +206,7 @@
                 </div>
                 <div class="form-group">
                     <label for="image">Upload an image!</label>
-                    <input type="file" name="file" accept="image/*">
+                    <input type="file" name="images" accept="image/*">
                 </div>
                 <button type="submit">Save Experience</button>
             </form>
@@ -228,6 +228,10 @@
                     <h3>{{ experience.title }}</h3>
                     <div class="date">{{ experience.date | format_date }}</div>
                     <p>{{ experience.description }}</p>
+
+                    {% if experience.image_id %}
+                        <img src="{{ url_for('get_image', image_id=experience.image_id) }}" alt="Experience Image">
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>
