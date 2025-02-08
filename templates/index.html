@@ -118,6 +118,45 @@
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
+
+        .star-rating {
+            display: flex;
+            direction: rtl;
+            font-size: 2em;
+            justify-content: center;
+        }
+
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+
+        .star-rating label {
+            color: #ddd;
+            cursor: pointer;
+            font-size: 1.5em;
+            margin: 0 5px; /* Adjust spacing between stars if needed */
+            transition: color 0.3s;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover ~ label,
+        .star-rating input[type="radio"]:checked ~ label,
+        .star-rating input[type="radio"]:checked ~ label ~ label {
+            color: #ffcc00;
+        }
+
+        .star-rating-in-experience {
+            display: flex;
+            font-size: 2em;
+        }
+
+        .star-rating-in-experience .filled{
+            color: #ffcc00;
+        }
+        .star-rating-in-experience .unfilled{
+            color: #ddd;
+        }
+
     </style>
 </head>
 <body>
@@ -135,6 +174,14 @@
         <div class="card">
             <h2>Share an Experience</h2>
             <form method="POST" action="{{ url_for('add_experience') }}">
+                <div class="star-rating">
+                    <input type="radio" name="rating" value="5" id="5"><label for="5">★</label>
+                    <input type="radio" name="rating" value="4" id="4"><label for="4">★</label>
+                    <input type="radio" name="rating" value="3" id="3"><label for="3">★</label>
+                    <input type="radio" name="rating" value="2" id="2"><label for="2">★</label>
+                    <input type="radio" name="rating" value="1" id="1"><label for="1">★</label>
+                    </div>
+
                 <div class="form-group">
                     <label for="title">What'd you do?</label>
                     <input type="text" id="title" name="title" required>
@@ -155,6 +202,15 @@
             <h2>My Experiences</h2>
             {% for experience in experiences %}
                 <div class="experience">
+                    <div class="star-rating-in-experience">
+                        {% for i in range(5) %}
+                            {% if i < experience.rating|int %}
+                                <span class="filled">★</span>
+                            {% else %}
+                                <span class="unfilled">★</span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                     <h3>{{ experience.title }}</h3>
                     <div class="date">{{ experience.date | format_date }}</div>
                     <p>{{ experience.description }}</p>

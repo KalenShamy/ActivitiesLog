@@ -28,6 +28,7 @@ def add_experience():
     if request.method == 'POST':
         title = request.form['title']
         description = request.form['description']
+        rating = request.form['rating']
         
         if not title or not description:
             flash('Title and description are required!', 'error')
@@ -36,7 +37,8 @@ def add_experience():
         experience = {
             'title': title,
             'description': description,
-            'date': datetime.utcnow()
+            'date': datetime.utcnow(),
+            'rating': rating
         }
         
         experiences.insert_one(experience)
