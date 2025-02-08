@@ -1,0 +1,166 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ether Experiences</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #4a5568;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #2d3748;
+        }
+
+        .experience {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+
+        .experience:last-child {
+            border-bottom: none;
+        }
+
+        .experience h3 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+
+        .date {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .delete-link {
+            color: #dc3545;
+            text-decoration: none;
+            font-size: 0.9em;
+            float: right;
+        }
+
+        .delete-link:hover {
+            text-decoration: underline;
+        }
+
+        .flash {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .flash.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .flash.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Experience Tracker</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="card">
+            <h2>Share an Experience</h2>
+            <form method="POST" action="{{ url_for('add_experience') }}">
+                <div class="form-group">
+                    <label for="title">What'd you do?</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Share some more</label>
+                    <textarea id="description" name="description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="image">Upload an image!</label>
+                    <input type="file" name="file" accept="image/*">
+                </div>
+                <button type="submit">Save Experience</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>My Experiences</h2>
+            {% for experience in experiences %}
+                <div class="experience">
+                    <h3>{{ experience.title }}</h3>
+                    <div class="date">{{ experience.date | format_date }}</div>
+                    <p>{{ experience.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
