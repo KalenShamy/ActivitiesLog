@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 from flask import send_file, Response
 
 from pymongo import MongoClient
+import re
 from bson.objectid import ObjectId
 from datetime import datetime
 import os
@@ -32,11 +33,22 @@ experiences = db.experiences    # collection name
 
 @app.route('/')
 def index():
+    search = request.args.get('search', None)
     # Sort by date descending
+    print(search)
     page = request.args.get("page", default=1, type=int)
     all_experiences = experiences.find().sort('date', -1).skip((page-1)*PAGE_SIZE).limit(PAGE_SIZE)
-    total_pages = (experiences.count_documents({}) + PAGE_SIZE-1) //PAGE_SIZE
-    return render_template('index.html', experiences=all_experiences, page_count= total_pages, current_page=page)
+    if search is None:
+        exps=all_experiences
+        count = experiences.count_documents({})
+    else:
+        print("actually calling search")
+        count, exps = Search(search, experiences)
+
+
+    total_pages = (count + PAGE_SIZE - 1) // PAGE_SIZE
+    
+    return render_template('index.html', experiences=exps, page_count= total_pages, current_page=page)
 
 @app.route("/toggle_like/<id>", methods=['POST'])
 def toggle_like(id):
@@ -90,6 +102,25 @@ def add_experience():
     flash('Experience added successfully!', 'success')
     return redirect(url_for('index'))
 
+@app.route('/search', methods=['GET'])
+def retrieve_search():
+    query = request.args.get('search-bar','')
+    print(query)
+    return redirect(url_for('index', search=query))
+
+
+def Search(search_term, experiences):
+    print("Searching")
+    query = {
+        "$or": [
+            {"description": {"$regex": search_term, "$options": "i"}},
+            {"title": {"$regex": search_term, "$options": "i"}}
+        ]
+    }
+    
+    return experiences.count_documents(query), experiences.find(query).sort('date', -1)
+    
+
 @app.route('/image/<image_id>')
 def get_image(image_id):
     try:
@@ -105,3 +136,5 @@ def format_date(date):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
