@@ -77,21 +77,25 @@
                         <img src="{{ url_for('get_image', image_id=experience.image_id) }}" alt="Experience Image">
                     {% endif %}
                     
-                    <form action="{{ url_for('toggle_like', id=experience._id) }}" name="like_button", id="like_button" onsubmit="updateLikes('{{experience._id}}')">
-                        <button type="submit" name="like_button" id="like_button" style="border:none;background-color:white;color:gray;font-size:1.5em;cursor:pointer;">
+                    
+                        <a onclick="updateLikes_{{experience._id}}()" name="like_button" id="like_button" style="border:none;background-color:white;color:gray;font-size:1.5em;cursor:pointer;">
                             ♥
-                        </button>
-                    </form>
+                        </a>
                     <span id="likes_count_{{ experience._id }}">{{ experience.likes }}</span>
                     <script>
-                        function updateLikes(id) {
-                            fetch(`/toggle_like/${experience_id}`, {
+                        function updateLikes_{{ experience._id }}() {
+                            fetch(`/toggle_like/{{ experience._id }}`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
                             }
-        })
-        .then(response => response.json())
+                            })
+                            .then(response => {
+                                data = response.json()
+                                .then(data => {
+                                    document.getElementById("likes_count_{{ experience._id }}").innerText = data["likes"];
+                                })
+                            })
 
                         }
                     </script>

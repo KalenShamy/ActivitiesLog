@@ -34,18 +34,16 @@ def index():
     all_experiences = experiences.find().sort('date', -1)
     return render_template('index.html', experiences=all_experiences)
 
-@app.route("/like/<id>", methods=['POST','GET'])
+@app.route("/toggle_like/<id>", methods=['POST'])
 def toggle_like(id):
     experiences = db["experiences"]
-    print("js called this function")
-    result = experiences.update_one(
+    experiences.update_one(
         {'_id': ObjectId(id)},
         {'$inc': {'likes': 1}}
     )
-    print(result)
-    
-
-
+    document = experiences.find_one({'_id': ObjectId(id)}, {'likes': 1})
+    print({"likes": document.get('likes', 0)})
+    return jsonify({"likes": document.get('likes', 0)})
 
 
 @app.route('/add', methods=['POST'])
