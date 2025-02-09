@@ -18,6 +18,41 @@
     <link href="https://fonts.googleapis.com/css2?family=Badeen+Display&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="background" background="../static/images/wave.png"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const background = document.getElementById('background');
+
+            let currentX = 0;
+            let oldMouseX = 0;
+            let mouseX = 0;
+            let diffX = 0;
+            const scrollSpeed = 0.02; // Controls constant left scroll speed
+            const easing = 0.001; // Controls how smoothly it follows the mouse
+
+            // Update target Y position based on mouse movement
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+            });
+
+            function animate() {
+                // Move left continuously
+                diffX = oldMouseX - mouseX;
+                oldMouseX = mouseX;
+
+                currentX -= scrollSpeed;
+                currentX -= diffX * easing;
+
+
+                // Apply the new background position
+                background.style.backgroundPosition = `${currentX}% 0%`;
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        });
+    </script>
     <div class="container">
         <a class="header" href="/?page=1" >
             <img src="../static/images/voyageLogo.png" alt="Life Voyager Logo" class="logo">
