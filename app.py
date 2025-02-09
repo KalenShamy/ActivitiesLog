@@ -8,7 +8,10 @@ from datetime import datetime
 import os
 import gridfs
 from dotenv import load_dotenv
+from better_profanity import profanity
 
+def replace_profanity(text):
+    return profanity.censor(text)
 
 load_dotenv()
 
@@ -33,9 +36,10 @@ def index():
 @app.route('/add', methods=['POST'])
 def add_experience():
     """ Handle adding a new experience with an optional image upload """
-    title = request.form.get('title')
-    description = request.form.get('description')
+    title = replace_profanity(request.form.get('title'))
+    description = replace_profanity(request.form.get('description'))
     rating = request.form['rating']
+    
     print("Files received:", request.files)  # Log received files
 
     file = request.files.get("images")  # Ensure correct name
@@ -56,6 +60,7 @@ def add_experience():
         'title': title,
         'description': description,
         'date': datetime.utcnow(),
+        'rating': rating,
         "image_id": file_id if file else None, 
     }
 
