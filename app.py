@@ -26,13 +26,17 @@ client = MongoClient(MONGO_URI)
 db = client.experience_tracker  # database name
 fs = gridfs.GridFS(client.db)
 
+PAGE_SIZE = 5
+
 experiences = db.experiences    # collection name
 
 @app.route('/')
 def index():
     # Sort by date descending
-    all_experiences = experiences.find().sort('date', -1)
-    return render_template('index.html', experiences=all_experiences)
+    page = request.args.get("page", default=1, type=int)
+    all_experiences = experiences.find().sort('date', -1).skip((page-1)*PAGE_SIZE).limit(PAGE_SIZE)
+    total_pages = (experiences.count_documents({}) + PAGE_SIZE-1) //PAGE_SIZE
+    return render_template('index.html', experiences=all_experiences, page_count= total_pages, current_page=page)
 
 @app.route("/toggle_like/<id>", methods=['POST'])
 def toggle_like(id):
