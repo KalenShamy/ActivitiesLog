@@ -59,60 +59,69 @@
             </form>
         </div>
 
-        <div class="card">
+        <div class="spacer">
             <h2>Voyages</h2>
-            {% for experience in experiences %}
-                <div class="experience">
-                    <div class="star-rating-in-experience">
-                        {% for i in range(5) %}
-                            {% if i < experience.rating|int %}
-                                <span class="filled">★</span>
-                            {% else %}
-                                <span class="unfilled">★</span>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                    <h3>{{ experience.title }}</h3>
-                    <div class="date">{{ experience.date | format_date }}</div>
-                    <p>{{ experience.description }}</p>
-
-                    {% if experience.image_id %}
-                        <img src="{{ url_for('get_image', image_id=experience.image_id) }}" alt="Experience Image">
-                    {% endif %}
-                    
-                    
-                        <a name="like_button" id="like_button_{{ experience._id }}" style="border:none;background-color:white;color:gray;font-size:1.5em;cursor:pointer;">
-                            🩶
-                        </a>
-                    <span id="likes_count_{{ experience._id }}">{{ experience.likes }}</span>
-                    <script>
-                        document.getElementById("like_button_{{ experience._id }}").onclick = updateLikes_{{ experience._id }};
-                        function updateLikes_{{ experience._id }}() {
-
-
-                            fetch(`/toggle_like/{{ experience._id }}`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            }
-                            })
-                            .then(response => {
-                                data = response.json()
-                                .then(data => {
-                                    document.getElementById("likes_count_{{ experience._id }}").innerText = data["likes"];
-                                    document.getElementById("like_button_{{ experience._id }}").onclick = null;
-                                    document.getElementById("like_button_{{ experience._id }}").innerText = "🧡";
-                                })
-                            })
-
-                        }
-                    </script>
-                </div>
-            {% endfor %}
         </div>
 
-        <div class="card pages">
-            <a class="page" href="/?page=1">&#x226A;</a>
+        {% for experience in experiences %}
+            <div class="card">
+                <div class="experience">
+                    <div class = "experience-ui-and-text">
+                        <h3>{{ experience.title }}</h3>
+                        <div class="UI-in-experience">
+                            <div class="star-rating-in-experience">
+                                {% for i in range(5) %}
+                                    {% if i < experience.rating|int %}
+                                        <span class="filled">★</span>
+                                    {% else %}
+                                        <span class="unfilled">★</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="Like-counter-in-experience">
+                                <a name="like_button" id="like_button_{{ experience._id }}" style="border:none;background-color:white;color:gray;font-size:1.5em;cursor:pointer;">
+                                    🩶
+                                </a>
+                                <span id="likes_count_{{ experience._id }}">{{ experience.likes }}</span>
+                                <script>
+                                    document.getElementById("like_button_{{ experience._id }}").onclick = updateLikes_{{ experience._id }};
+                                    function updateLikes_{{ experience._id }}() {
+
+
+                                        fetch(`/toggle_like/{{ experience._id }}`, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        }
+                                        })
+                                        .then(response => {
+                                            data = response.json()
+                                            .then(data => {
+                                                document.getElementById("likes_count_{{ experience._id }}").innerText = data["likes"];
+                                                document.getElementById("like_button_{{ experience._id }}").onclick = null;
+                                                document.getElementById("like_button_{{ experience._id }}").innerText = "🧡";
+                                            })
+                                        })
+
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                            <p>{{ experience.description }}</p>               
+                            <div class="date">{{ experience.date | format_date }}</div>
+                    </div>
+                    <div class = "experience-image">
+                    {% if experience.image_id %}
+                    <img src="{{ url_for('get_image', image_id=experience.image_id) }}" alt="Experience Image">
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        
+
+        <div class="card-pages">
+            <a  href="/?page=1">&#x226A;</a>
             {% if current_page-1 > 1 %}
                 <a class="page" href="/?page={{current_page-1}}">&#8826;</a>
             {% else %}

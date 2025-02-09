@@ -26,7 +26,7 @@ client = MongoClient(MONGO_URI)
 db = client.experience_tracker  # database name
 fs = gridfs.GridFS(client.db)
 
-PAGE_SIZE = 5
+PAGE_SIZE = 15
 
 experiences = db.experiences    # collection name
 

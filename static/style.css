@@ -43,11 +43,19 @@ body {
 
 .card {
     background: white;
-    border-radius: 8px;
+    border-radius: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin-bottom: 20px;
     color: var(--primary-color);
+}
+
+.card h2 {
+    text-align: center;
+}
+
+.card-pages {
+    text-align: right;
 }
 
 h1, h2 {
@@ -63,6 +71,7 @@ h1 {
 }
 
 h2 {
+    text-align: center;
     font-size: 1.75em;
     margin-block: 0;
 }
@@ -107,7 +116,15 @@ button:hover {
     background-color: var(--button-hover-color);
 }
 
+.spacer {
+    margin: 30px !important;
+}
+   
+
 .experience {
+    display: flex;
+    justify-content: space-between;
+    
     border-bottom: 1px solid #eee;
     padding: 15px 0;
 }
@@ -121,7 +138,22 @@ button:hover {
     color: var(--primary-color);
 }
 
+.star-rating-in-experience {
+    margin-right: 25px;
+}
+
+.UI-in-experience {
+    display: flex;
+}
+
+.text-in-experience {
+    display: flex;
+    flex-direction: column;
+    height: auto; 
+}
+
 .date {
+    margin-top: auto;
     color: #666;
     font-size: 0.9em;
     margin-bottom: 10px;
