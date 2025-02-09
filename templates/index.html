@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>My Experience Tracker</h1>
+        <h1>Life Voyager</h1>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -42,12 +42,12 @@
                     <label for="image">Upload an image!</label>
                     <input type="file" name="images" accept="image/*">
                 </div>
-                <button type="submit">Save Experience</button>
+                <button type="submit">Share it out!</button>
             </form>
         </div>
 
         <div class="card">
-            <h2>My Experiences</h2>
+            <h2>Voyages</h2>
             {% for experience in experiences %}
                 <div class="experience">
                     <div class="star-rating-in-experience">
