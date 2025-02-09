@@ -1,7 +1,6 @@
 :root {
-    --title-font: "Boogaloo", cursive, sans-serif;
-
-    --primary-font: "Boogaloo", cursive, sans-serif;
+    --title-font: "Boogaloo", sans-serif;
+    --primary-font: "Boogaloo", sans-serif;
 
     --primary-color: #333;
     --secondary-color: #555;
