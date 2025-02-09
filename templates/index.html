@@ -66,6 +66,13 @@
                     {% if experience.image_id %}
                         <img src="{{ url_for('get_image', image_id=experience.image_id) }}" alt="Experience Image">
                     {% endif %}
+                    
+                    <form action="{{ url_for('like') }}/{{ experience._id }}" name = "like_button", id="like_button">
+                        <button type="submit" name="like_button" id="like_button" style="border:none;background-color:white;color:gray;font-size:1.5em;cursor:pointer;">
+                            ♥
+                        </button>
+                    </form>
+                    <p>{{ experience.likes }}</p>
                 </div>
             {% endfor %}
         </div>

@@ -34,12 +34,25 @@ def index():
     all_experiences = experiences.find().sort('date', -1)
     return render_template('index.html', experiences=all_experiences)
 
+@app.route("/like/<id>", methods=['POST'])
+def toggle_like(id):
+    experiences = db["experiences"]
+    result = experiences.update_one(
+        {'_id': ObjectId(id)},
+        {'$inc': {'likes': 1}}
+    )
+    return result.modified_count
+
+
+
+
 @app.route('/add', methods=['POST'])
 def add_experience():
     """ Handle adding a new experience with an optional image upload """
     title = request.form.get('title')
     description = request.form.get('description')
     rating = request.form.get('rating','0')
+    likes = 0
     
     print("Files received:", request.files)  # Log received files
 
@@ -68,6 +81,7 @@ def add_experience():
         'date': datetime.utcnow(),
         'rating': rating,
         "image_id": file_id if file else None, 
+        "likes": likes
     }
 
    
