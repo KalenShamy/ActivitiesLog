@@ -10,8 +10,9 @@ import gridfs
 from dotenv import load_dotenv
 from better_profanity import profanity
 
-def replace_profanity(text):
-    return profanity.censor(text)
+def has_profanity(text):
+    # Check if the text contains any profane words
+    return profanity.contains_profanity(text)
 
 load_dotenv()
 
@@ -36,17 +37,22 @@ def index():
 @app.route('/add', methods=['POST'])
 def add_experience():
     """ Handle adding a new experience with an optional image upload """
-    title = replace_profanity(request.form.get('title'))
-    description = replace_profanity(request.form.get('description'))
+    title = request.form.get('title')
+    description = request.form.get('description')
     rating = request.form['rating']
     
     print("Files received:", request.files)  # Log received files
 
     file = request.files.get("images")  # Ensure correct name
 
+
     # Ensure title and description exist
     if not title or not description:
         flash('Title and description are required!', 'error')
+        return redirect(url_for('index'))
+    
+    if has_profanity(title) or  has_profanity(description):
+        flash('You cannot type that!', 'error')
         return redirect(url_for('index'))
 
     # Get the file safely (avoid KeyError)
