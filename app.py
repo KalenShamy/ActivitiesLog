@@ -39,7 +39,7 @@ def add_experience():
     """ Handle adding a new experience with an optional image upload """
     title = request.form.get('title')
     description = request.form.get('description')
-    rating = request.form['rating']
+    rating = request.form.get('rating','0')
     
     print("Files received:", request.files)  # Log received files
 
