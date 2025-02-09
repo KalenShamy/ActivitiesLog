@@ -78,12 +78,15 @@
                     {% endif %}
                     
                     
-                        <a onclick="updateLikes_{{experience._id}}()" name="like_button" id="like_button" style="border:none;background-color:white;color:gray;font-size:1.5em;cursor:pointer;">
-                            ♥
+                        <a name="like_button" id="like_button_{{ experience._id }}" style="border:none;background-color:white;color:gray;font-size:1.5em;cursor:pointer;">
+                            🩶
                         </a>
                     <span id="likes_count_{{ experience._id }}">{{ experience.likes }}</span>
                     <script>
+                        document.getElementById("like_button_{{ experience._id }}").onclick = updateLikes_{{ experience._id }};
                         function updateLikes_{{ experience._id }}() {
+
+
                             fetch(`/toggle_like/{{ experience._id }}`, {
                             method: 'POST',
                             headers: {
@@ -94,6 +97,8 @@
                                 data = response.json()
                                 .then(data => {
                                     document.getElementById("likes_count_{{ experience._id }}").innerText = data["likes"];
+                                    document.getElementById("like_button_{{ experience._id }}").onclick = null;
+                                    document.getElementById("like_button_{{ experience._id }}").innerText = "🧡";
                                 })
                             })
 
