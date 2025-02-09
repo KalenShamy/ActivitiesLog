@@ -40,6 +40,15 @@ body {
     margin: 0 auto;
 }
 
+@media screen and (max-width: 600px) {
+    .experience {
+        flex-direction: column-reverse;
+    }
+    .experience img {
+        object-fit: cover;
+    }
+}
+
 .header {
     margin-bottom: 20px;
     display: flex;
