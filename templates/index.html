@@ -105,8 +105,7 @@
         </div>
 
         {% for experience in experiences %}
-            <div class="card">
-                <div class="experience">
+            <div class="card experience">
                     <div class = "experience-ui-and-text">
                         <h3>{{ experience.title }}</h3>
                         <div class="UI-in-experience">
@@ -151,12 +150,9 @@
                             <p>{{ experience.description }}</p>               
                             <div class="date">{{ experience.date | format_date }}</div>
                     </div>
-                    <div class = "experience-image">
                     {% if experience.image_id %}
-                    <img src="{{ url_for('get_image', image_id=experience.image_id) }}" alt="Experience Image">
+                        <img src="{{ url_for('get_image', image_id=experience.image_id) }}">
                     {% endif %}
-                    </div>
-                </div>
             </div>
         {% endfor %}
         

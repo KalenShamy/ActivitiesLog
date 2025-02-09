@@ -53,11 +53,15 @@ body {
     max-height: 150px;
 }
 
+.card:not(.experience) {
+    padding: 20px;
+}
+
 .card {
     background: white;
     border-radius: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    overflow: clip;
     margin-bottom: 20px;
     color: var(--primary-color);
 }
@@ -138,7 +142,7 @@ button:hover {
     justify-content: space-between;
     
     border-bottom: 1px solid #eee;
-    padding: 15px 0;
+    padding: 0;
 }
 
 .experience:last-child {
@@ -148,6 +152,10 @@ button:hover {
 .experience h3 {
     margin: 0 0 5px 0;
     color: var(--primary-color);
+}
+
+.experience-ui-and-text {
+    padding: 20px;
 }
 
 .star-rating-in-experience {
