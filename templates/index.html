@@ -111,12 +111,12 @@
             {% endfor %}
         </div>
 
-        <div class="card">
-            <a href="/?page=1">&#x226A;</a>
+        <div class="card pages">
+            <a class="page" href="/?page=1">&#x226A;</a>
             {% if current_page-1 > 1 %}
-                <a href="/?page={{current_page-1}}">&#8826;</a>
+                <a class="page" href="/?page={{current_page-1}}">&#8826;</a>
             {% else %}
-                <a href="/?page=1">&#8826;</a>
+                <a class="page" href="/?page=1">&#8826;</a>
             {% endif %}
             {% for i in range(1, page_count+1) %}
                 {% if i == current_page %}
@@ -126,11 +126,11 @@
                 {% endif %}
             {% endfor %}
             {% if current_page+1 < page_count %}
-                <a href="/?page={{current_page+1}}">&#8827;</a>
+                <a class="page" href="/?page={{current_page+1}}">&#8827;</a>
             {% else %}
-                <a href="/?page={{page_count}}">&#8827;</a>
+                <a class="page" href="/?page={{page_count}}">&#8827;</a>
             {% endif %}
-            <a href="/?page={{page_count}}">&#x226B;</a>
+            <a class="page" href="/?page={{page_count}}">&#x226B;</a>
         </div>
     </div>
 </body>
