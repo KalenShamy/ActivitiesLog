@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ether Experiences</title>
+    <title>Life Voyager</title>
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
@@ -67,12 +67,24 @@
                         <img src="{{ url_for('get_image', image_id=experience.image_id) }}" alt="Experience Image">
                     {% endif %}
                     
-                    <form action="{{ url_for('like') }}/{{ experience._id }}" name = "like_button", id="like_button">
+                    <form action="{{ url_for('toggle_like', id=experience._id) }}" name="like_button", id="like_button" onsubmit="updateLikes('{{experience._id}}')">
                         <button type="submit" name="like_button" id="like_button" style="border:none;background-color:white;color:gray;font-size:1.5em;cursor:pointer;">
                             ♥
                         </button>
                     </form>
-                    <p>{{ experience.likes }}</p>
+                    <span id="likes_count_{{ experience._id }}">{{ experience.likes }}</span>
+                    <script>
+                        function updateLikes(id) {
+                            fetch(`/toggle_like/${experience_id}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+        })
+        .then(response => response.json())
+
+                        }
+                    </script>
                 </div>
             {% endfor %}
         </div>

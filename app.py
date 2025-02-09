@@ -1,5 +1,5 @@
 # app.py
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask import send_file, Response
 
 from pymongo import MongoClient
@@ -34,14 +34,16 @@ def index():
     all_experiences = experiences.find().sort('date', -1)
     return render_template('index.html', experiences=all_experiences)
 
-@app.route("/like/<id>", methods=['POST'])
+@app.route("/like/<id>", methods=['POST','GET'])
 def toggle_like(id):
     experiences = db["experiences"]
+    print("js called this function")
     result = experiences.update_one(
         {'_id': ObjectId(id)},
         {'$inc': {'likes': 1}}
     )
-    return result.modified_count
+    print(result)
+    
 
 
 
