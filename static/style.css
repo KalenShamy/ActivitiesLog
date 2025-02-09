@@ -163,3 +163,6 @@ button:hover {
 .star-rating-in-experience .unfilled{
     color: #ddd;
 }
+.star-rating-in-experience, img{
+    width: 100%;
+}
