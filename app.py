@@ -79,7 +79,7 @@ def add_experience():
     experience = {
         'title': title,
         'description': description,
-        'date': datetime.utcnow(),
+        'date': datetime.now(),
         'rating': rating,
         "image_id": file_id if file else None, 
         "likes": likes
