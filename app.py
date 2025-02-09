@@ -58,22 +58,19 @@ def add_experience():
 
     file = request.files.get("images")  # Ensure correct name
 
-
     # Ensure title and description exist
     if not title or not description:
         flash('Title and description are required!', 'error')
         return redirect(url_for('index'))
     
     if has_profanity(title) or  has_profanity(description):
-        flash('You cannot type that!', 'error')
+        flash('No profanity please!', 'error')
         return redirect(url_for('index'))
 
     # Get the file safely (avoid KeyError)
     if file:  # Check if file is uploaded
         print(f"File received: {file.filename}")  # Debugging
         file_id = fs.put(file, filename=file.filename, content_type=file.content_type)
-    else:
-        print("No file received!")  # Debugging
 
     experience = {
         'title': title,
@@ -83,7 +80,6 @@ def add_experience():
         "image_id": file_id if file else None, 
         "likes": likes
     }
-
    
     # Insert experience into MongoDB
     experiences.insert_one(experience)
