@@ -1,12 +1,25 @@
+:root {
+    --title-font: "Playwrite TZ", sans-serif;
+    --primary-font: "Boogaloo", cursive, sans-serif;
+
+    --primary-color: #333;
+    --secondary-color: #555;
+    --background-color: #FFCBA4;
+    --button-bg-color: #FF8C00;
+    --button-hover-color: #E67E22;
+    --success-bg: #FFE5B4;
+    --success-color: #FF8C00;
+    --error-bg: #FFB347;
+    --error-color: #E74C3C;
+}
+
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    font-family: var(--primary-font) !important;
+    font-weight: 200;
     line-height: 1.6;
     margin: 0;
     padding: 20px;
-    background: #F5F5F5;
-    background: -moz-linear-gradient(-45deg, #F5F5F5 0%, #D3D4D5 100%);
-    background: -webkit-linear-gradient(-45deg, #F5F5F5 0%, #D3D4D5 100%);
-    background: linear-gradient(135deg, #F5F5F5 0%, #D3D4D5 100%);
+    background: var(--background-color);
 }
 
 .container {
@@ -20,18 +33,24 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin-bottom: 20px;
+    color: var(--primary-color);
 }
-.card, h2{
-    color: #333;
-    margin-top: -10px;
+
+h1, h2 {
+    color: var(--primary-color);
 }
 
 h1 {
-    color: #333;
+    font-family: var(--title-font);
     margin-bottom: 40px;
     margin-top: 10px;
     font-size: 50px;
     text-align: center;
+}
+
+h2 {
+    font-size: 1.75em;
+    margin-block: 0;
 }
 
 .form-group {
@@ -41,7 +60,8 @@ h1 {
 label {
     display: block;
     margin-bottom: 5px;
-    color: #555;
+    font-size: 1.25em;
+    color: var(--secondary-color);
 }
 
 input[type="text"],
@@ -59,7 +79,8 @@ textarea {
 }
 
 button {
-    background-color: #4a5568;
+    background-color: var(--button-bg-color);
+    font-family: var(--primary-font);
     color: white;
     padding: 10px 20px;
     border: none;
@@ -69,7 +90,7 @@ button {
 }
 
 button:hover {
-    background-color: #2d3748;
+    background-color: var(--button-hover-color);
 }
 
 .experience {
@@ -83,7 +104,7 @@ button:hover {
 
 .experience h3 {
     margin: 0 0 5px 0;
-    color: #333;
+    color: var(--primary-color);
 }
 
 .date {
@@ -104,7 +125,7 @@ button:hover {
 }
 
 #description {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    font-family: var(--primary-font);
 }
 
 .flash {
@@ -114,14 +135,14 @@ button:hover {
 }
 
 .flash.success {
-    background-color: #d4edda;
-    color: #155724;
+    background-color: var(--success-bg);
+    color: var(--success-color);
     border: 1px solid #c3e6cb;
 }
 
 .flash.error {
-    background-color: #f8d7da;
-    color: #721c24;
+    background-color: var(--error-bg);
+    color: var(--error-color);
     border: 1px solid #f5c6cb;
 }
 
@@ -140,20 +161,15 @@ button:hover {
     color: #ddd;
     cursor: pointer;
     font-size: 1.5em;
-    margin: 0 5px; /* Adjust spacing between stars if needed */
+    margin: 0 5px;
     transition: color 0.3s;
 }
 
-
-.star-rating {
-    margin-top: -10px;
-    margin-bottom: 10px;
-}
 .star-rating label:hover,
 .star-rating label:hover ~ label,
 .star-rating input[type="radio"]:checked ~ label,
 .star-rating input[type="radio"]:checked ~ label ~ label {
-    color: #ffcc00;
+    color: #FF8C00;
 }
 
 .star-rating-in-experience {
@@ -161,17 +177,19 @@ button:hover {
     font-size: 2em;
 }
 
-.star-rating-in-experience .filled{
-    color: #ffcc00;
+.star-rating-in-experience .filled {
+    color: #FF8C00;
 }
-.star-rating-in-experience .unfilled{
+
+.star-rating-in-experience .unfilled {
     color: #ddd;
 }
-.star-rating-in-experience, img{
+
+.star-rating-in-experience, img {
     max-width: 100%;
     max-height: 250px;
 }
 
 #title {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    font-family: var(--primary-font);
 }
